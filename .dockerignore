@@ -1,0 +1,17 @@
+node_modules
+dist
+.git
+.github
+.env
+.env.*
+data
+tmp
+backups
+coverage
+tests
+*.log
+*.zip
+*.pem
+*.key
+.codex
+.agents

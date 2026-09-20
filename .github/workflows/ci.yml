@@ -1,0 +1,46 @@
+name: Build and test
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:8.0
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ping:1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: docker build -t badrhis:ci .
+      - name: Smoke test production container
+        run: |
+          docker run -d --name badrhis-ci --network host \
+            -e MONGODB_URI=mongodb://127.0.0.1:27017 \
+            -e MONGODB_DATABASE=badr_his_test_docker_ci \
+            -e SETUP_TOKEN=ci-only-bootstrap-token-at-least-32-characters \
+            badrhis:ci
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/healthz; then break; fi
+            sleep 2
+          done
+          curl --fail http://127.0.0.1:8080/healthz
+          curl --fail --silent http://127.0.0.1:8080/api/auth/status | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const r=JSON.parse(s);if(!r.needsSetup||!r.setupTokenRequired)process.exit(1);});'
+          curl --fail --silent http://127.0.0.1:8080/ | grep 'id="root"'
+      - name: Container logs
+        if: always()
+        run: docker logs badrhis-ci || true

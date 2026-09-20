@@ -1,0 +1,6 @@
+html[data-role="user"] .add-department,
+html[data-role="user"] .department-actions button:last-child,
+html[data-role="user"][data-page="departments"] .page-heading .primary,
+html[data-role="user"][data-has-departments="false"] .empty .secondary {
+  display: none;
+}

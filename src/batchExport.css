@@ -1,0 +1,9 @@
+.batch-download-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 16px;padding:16px 20px;border:1px solid #cfe5e2;border-radius:10px;background:#f0f8f7;color:#235b5a}
+.batch-download-bar>div{display:grid;gap:4px}
+.batch-download-bar strong{font-size:14px}
+.batch-download-bar span{font-size:11px;color:#6a8588}
+.batch-download-bar button{flex:0 0 auto;color:#087879;border-color:#b9d7d4}
+.barcode-batch-stage{position:fixed;top:0;left:-10000px;width:50mm;height:30mm;background:#fff;pointer-events:none}
+.patient-label svg{shape-rendering:crispEdges}
+.print-actions{flex-wrap:wrap}
+@media(max-width:600px){.batch-download-bar{align-items:stretch;flex-direction:column}.batch-download-bar button{width:100%}}

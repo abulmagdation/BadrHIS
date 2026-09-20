@@ -1,0 +1,83 @@
+.department-picker {
+  display: flex;
+  gap: 10px;
+  padding: 18px 24px 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.department-picker button {
+  flex: 0 0 auto;
+  min-width: 125px;
+  justify-content: space-between;
+  border: 1px solid #dfe8eb;
+  border-radius: 8px;
+  padding: 11px 13px;
+  background: #fff;
+  color: #597079;
+}
+.department-picker button b {
+  min-width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #eef4f4;
+  color: #287b77;
+}
+.department-picker button.chosen {
+  border-color: #19837f;
+  background: #edf7f5;
+  color: #086f71;
+}
+.department-picker button.chosen b { background: #087879; color: #fff; }
+.selected-department {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  white-space: nowrap;
+  color: #648087;
+  font-size: 12px;
+}
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  padding: 18px 26px;
+  border-top: 1px solid #e8eff2;
+  background: #f8fafb;
+}
+.department-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.department-actions button:last-child {
+  padding-right: 12px;
+  border-right: 1px solid #dbe5e7;
+}
+.capacity-note {
+  padding: 12px 14px;
+  border-radius: 7px;
+  background: #eef6f5;
+  color: #456d70;
+  font-size: 12px;
+  line-height: 1.8;
+}
+tbody tr.discharged-row,
+tbody tr.discharged-row:hover {
+  background: #fff1f1;
+}
+.badge.red {
+  color: #a54848;
+  background: #ffe0e0;
+}
+tbody tr.discharged-row .avatar {
+  color: #a75555;
+  background: #ffe4e4;
+}
+@media (max-width: 760px) {
+  .department-picker { padding: 14px 15px 0; }
+  .department-picker button { min-width: 112px; }
+  .selected-department { width: 100%; padding-top: 3px; }
+  .detail-actions { padding: 15px 20px; }
+  .department-actions { gap: 8px; }
+}
